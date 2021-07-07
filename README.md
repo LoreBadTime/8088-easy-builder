@@ -10,7 +10,7 @@ s88.exe
 CWSDPMI.EXE
 ```
 
-you need to pack them in a folder called 8088 like this
+and you need to pack them in a folder called 8088 like this
 ```
 /8088/as88.exe
 /8088/t88.exe
