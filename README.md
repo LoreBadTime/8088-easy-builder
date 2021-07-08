@@ -1,5 +1,5 @@
 # 8088-easy-builder
-GUI 8088 builder(made for ARE course),(NEEDS DOSBOX,Windows-Linux)
+GUI 8088 builder,(NEEDS DOSBOX,Windows-Linux)
 
 Prerequisites:
 before using it you need to get few files
@@ -28,7 +28,7 @@ Windows install Instructons:
 ```
 Now just start 8088GUIassembler.py in "Windows builder" folder(you can change this file location)
 
-Linux install Instructons(Ubuntu based;TEST VERSION COULD NOT WORK):
+Linux install Instructons(Ubuntu based;TEST VERSION,COULD NOT WORK):
 ```
 1)Install DOSBOX and python3(>3.8)
 Terminal commands:
