@@ -1,5 +1,5 @@
 # 8088-easy-builder
-GUI 8088 builder,(NEEDS DOSBOX,Windows-Linux)
+GUI 8088 builder,(NEEDS DOSBOX,Windows-Linux,MacOS soon)
 
 Prerequisites:
 before using it you need to get few files
