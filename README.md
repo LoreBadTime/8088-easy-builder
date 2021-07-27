@@ -68,7 +68,6 @@ Now just start 8088GUIassembler.py in "linux builder" folder(you can change this
 -/MacOS builder/8088GUIassembler.pyw
 
 4)start dosbox once and close it
-command: "dosbox"
 
 ```
 Now just start 8088GUIassembler.py in "MacOS builder" folder(you can change this file location)
