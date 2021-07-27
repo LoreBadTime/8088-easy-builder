@@ -90,3 +90,7 @@ Try to replace manually the dosbox.conf provided in source folder into the defau
 ```
 its based on few feedbacks,but this is the best i can do since i don't own a MacOS
 ```
+4)How to remove the python shell?
+```
+Rename the .py extension into .pyw
+```
