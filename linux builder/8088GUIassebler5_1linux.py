@@ -2,8 +2,11 @@ import webbrowser,subprocess,os,shutil
 from pathlib import Path
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
-global root,username
+global root,username,linuxfolder
 import re
+
+linuxfolder = str(os.path.expanduser("~"))
+linuxdos = str(os.path.expanduser("~")) + str('/.dosbox/')
 selection = 0
 num = 2
 colorv = True
@@ -13,40 +16,55 @@ filename = ""
 root = tk.Tk()
 root.title("8088 assembler")
 root.configure(background='black')
-root.geometry("204x190")
+root.geometry("254x190")
 root.resizable(False,False) 
 txt1=""
 txt2="assemble 88"
 txt3="Chose file"
-username = str(os.getlogin())
+
+
 if os.path.isfile('./dosbox-0.74-3.conf') == True:
-    shutil.copy2('./dosbox-0.74-3.conf', str("C:/Users/"+ username +"/AppData/Local/DOSBox/"))
-    os.remove('./dosbox-0.74-3.conf')
+    try:
+        shutil.copy2('./dosbox-0.74-3.conf', linuxdos)
+    except:
+        print("FATAL:cant move the config file,does"+str(linuxdos)+"exist?")
+    try:
+        os.remove('./dosbox-0.74-3.conf')
+    except:
+        print("WARN:can't remove config file from current dir")
+        
 if os.path.isfile('./8088/as88.exe') == True:
-    shutil.copytree('./8088', str("C:/8088"))
-    shutil.rmtree('./8088')
+    try:
+        shutil.copytree('./8088', str(linuxfolder + str("/8088/")))
+    except:
+        print("FATAL:cant move the 8088 dirctoy")
+    try:
+        shutil.rmtree('./8088')
+    except:
+        print("WARN:cant move the 8088 dirctoy")
 
 
 
-if os.path.isfile('C:/Users/'+ username +'/AppData/Local/DOSBox/dosbox-0.74-3_buckup.conf') == True:
-    os.remove("C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3.conf")
-    os.rename("C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3_buckup.conf","C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3.conf")
+if os.path.isfile(linuxdos + '/dosbox-0.74-3_buckup.conf') == True:
+    os.remove(linuxdos + "/dosbox-0.74-3.conf")
+    os.rename(linuxdos + "/dosbox-0.74-3_buckup.conf",linuxdos + "/dosbox-0.74-3.conf")
 def clearjunk():
-    for file in os.listdir("C:/8088/"):
+    global linuxfolder
+    for file in os.listdir(linuxfolder + "/8088/"):
         if file.endswith('.s') or file.endswith('.#') or file.endswith('.$') or file.endswith('.88') or file.endswith('.$$$'):
-            os.remove("C:/8088/"+ file)            
+            os.remove(linuxfolder + "/8088/" + file)            
 
 def openwebpage():
     webbrowser.open('https://github.com/LoreBadTime/8088-easy-builder', new=2)
     webbrowser.open('https://www.dosbox.com/download.php?main=1', new=2)
 
 def callback(num):
-    global selection,build,filename,T,b,k,c,colorv,colorv2,directory,file,f_w_ext,configfile,s
+    global selection,build,filename,T,b,k,c,colorv,colorv2,directory,file,f_w_ext,configfile,s,linuxfolder
     selection = num
     if selection == 3:
-            if os.path.isfile('C:/Users/'+ username +'/AppData/Local/DOSBox/dosbox-0.74-3_buckup.conf') == True:
-                os.remove("C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3.conf")
-                os.rename("C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3_buckup.conf","C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3.conf")
+            if os.path.isfile(linuxdos + '/dosbox-0.74-3_buckup.conf') == True:
+                os.remove(linuxdos + "/dosbox-0.74-3.conf")
+                os.rename(linuxdos + "/dosbox-0.74-3_buckup.conf",linuxdos + "/dosbox-0.74-3.conf")
             filename = askopenfilename()
             directory = os.path.dirname(filename)
             file = os.path.basename(filename)
@@ -78,24 +96,25 @@ def callback(num):
                 s.configure(foreground='red',activeforeground='red')
                 c.configure(foreground='yellow',activeforeground='yellow')
             else:
+                fold88= linuxfolder + str("/8088/")
                 copystring = f_w_ext
                 f_w_ext = "tmp"
-                if os.path.isfile(str("C:/8088/" + f_w_ext + ".s")) == True:
-                    os.remove(str("C:/8088/" + f_w_ext + ".s"))
-                shutil.copy2(str(directory + "/" + copystring + ".s"), str("C:/8088/"))
-                os.rename(str("C:/8088/" + copystring + ".s"),str("C:/8088/" + f_w_ext + ".s"))
-                if os.path.isfile(str("C:/8088/" + f_w_ext + ".#")) == True:
-                    os.remove(str("C:/8088/" + f_w_ext + ".#"))
-                if os.path.isfile(str("C:/8088/" + f_w_ext + ".88")) == True:
-                    os.remove(str("C:/8088/" + f_w_ext + ".88"))
-                if os.path.isfile(str("C:/8088/" + f_w_ext + ".$")) == True:
-                    os.remove(str("C:/8088/" + f_w_ext + ".$"))
-                if os.path.isfile(str("C:/8088/ASCIIFIL.$$$")) == True:
-                    os.remove(str("C:/8088/ASCIIFIL.$$$"))
-                if os.path.isfile('C:/Users/'+ username +'/AppData/Local/DOSBox/dosbox-0.74-3_buckup.conf') == True and colorv != True:
-                    os.remove("C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3.conf")
+                if os.path.isfile(str(fold88 + f_w_ext + ".s")) == True:
+                    os.remove(str(fold88 + f_w_ext + ".s"))
+                shutil.copy2(str(directory + "/" + copystring + ".s"), str(fold88))
+                os.rename(str(fold88 + copystring + ".s"),str(fold88 + f_w_ext + ".s"))
+                if os.path.isfile(str(fold88 + f_w_ext + ".#")) == True:
+                    os.remove(str(fold88 + f_w_ext + ".#"))
+                if os.path.isfile(str(fold88 + f_w_ext + ".88")) == True:
+                    os.remove(str(fold88 + f_w_ext + ".88"))
+                if os.path.isfile(str(fold88 + f_w_ext + ".$")) == True:
+                    os.remove(str(fold88 + f_w_ext + ".$"))
+                if os.path.isfile(str(fold88 + "ASCIIFIL.$$$")) == True:
+                    os.remove(str(fold88 + "ASCIIFIL.$$$"))
+                if os.path.isfile(linuxdos + '/dosbox-0.74-3_buckup.conf') == True and colorv != True:
+                    os.remove(linuxdos + "/dosbox-0.74-3.conf")
                     T.delete('1.0', tk.END)
-                    os.rename("C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3_buckup.conf","C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3.conf")
+                    os.rename(linuxdos + "/dosbox-0.74-3_buckup.conf",linuxdos + "/dosbox-0.74-3.conf")
 
                 try:
                     if filename != "":
@@ -112,8 +131,8 @@ def callback(num):
                         else:
                             T.delete('1.0', tk.END)
                             T.insert(tk.END, file)
-                            f = open('C:/Users/'+ username +'/AppData/Local/DOSBox/dosbox-0.74-3.conf','r+')
-                            g = open('C:/Users/'+ username +'/AppData/Local/DOSBox/test_rep.conf','w')
+                            f = open(linuxdos + '/dosbox-0.74-3.conf','r+')
+                            g = open(linuxdos + '/test_rep.conf','w')
                             lines = f.readlines()
                             for line in lines:
                                 if line == "#config\n":
@@ -131,13 +150,15 @@ def callback(num):
                             f.close()
                             g.close()
 
-                            os.rename("C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3.conf","C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3_buckup.conf")
-                            os.rename("C:/Users/"+ username +"/AppData/Local/DOSBox/test_rep.conf","C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3.conf")
-                            p = subprocess.Popen(str('C://Program Files (x86)//DOSBox-0.74-3//DOSBox.exe'))
+                            os.rename(linuxdos + "/dosbox-0.74-3.conf",linuxdos + "/dosbox-0.74-3_buckup.conf")
+                            os.rename(linuxdos + "/test_rep.conf",linuxdos + "/dosbox-0.74-3.conf")
+                            p = subprocess.Popen(str('dosbox'))
                             p.wait()
                             clearjunk()
-                            os.remove("C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3.conf")
-                            os.rename("C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3_buckup.conf","C:/Users/"+ username +"/AppData/Local/DOSBox/dosbox-0.74-3.conf")
+                            if os.path.isfile(linuxdos + '/dosbox-0.74-3_buckup.conf') == True:
+                                os.remove(linuxdos + "/dosbox-0.74-3.conf")
+                                os.rename(linuxdos + "/dosbox-0.74-3_buckup.conf",linuxdos + "/dosbox-0.74-3.conf")
+                            
                 except:
                     pass
                 f_w_ext = copystring
@@ -146,7 +167,7 @@ def callback(num):
     except:
         pass
 
-if os.path.isfile('C:/8088/as88.exe') != True or os.path.isfile('C:/Program Files (x86)/DOSBox-0.74-3/DOSBox.exe') != True:
+if os.path.isfile(str(linuxfolder + '/8088/as88.exe')) != True :
     d = tk.Button(root, text="Download 8088 and Dosbox", height = 1,width = 25,activebackground='black',background='black',foreground='cyan')
     d.configure(command=lambda :openwebpage())
     d.place(x=10 ,y=50)
@@ -167,7 +188,7 @@ else:
     s = tk.Button(root, text="syntax check", height = 1,width = 25,activebackground='black',background='black',foreground='yellow',activeforeground='red')
     s.configure(command=lambda :callback(6))
     s.place(x=10 ,y=110)
-    T = tk.Text(root, height = 2, width = 22,)
+    T = tk.Text(root, height = 2, width = 28,)
     T.place(x=10 ,y=140)
     T.insert(tk.END, "chose a file")
     

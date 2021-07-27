@@ -5,7 +5,7 @@ from tkinter.filedialog import askopenfilename
 global root,username,linuxfolder
 import re
 linuxfolder = str(os.path.expanduser("~"))
-linuxdos = str(os.path.expanduser("~")) + str('/.dosbox/')
+linuxdos = str(os.path.expanduser("~")) + str('/Library/Preferences/DOSBox 0.73 Preferences/')
 selection = 0
 num = 2
 colorv = True
@@ -21,14 +21,24 @@ txt1=""
 txt2="assemble 88"
 txt3="Chose file"
 
-
 if os.path.isfile('./dosbox-0.74-3.conf') == True:
-    shutil.copy2('./dosbox-0.74-3.conf', linuxdos)
-    os.remove('./dosbox-0.74-3.conf')
+    try:
+        shutil.copy2('./dosbox-0.74-3.conf', linuxdos)
+    except:
+        print("FATAL:errors moving the config files,does '"+ linuxdos + "'exist?")
+    try:
+        os.remove('./dosbox-0.74-3.conf')
+    except:
+        print("WARN:errors removing congfig files from current directory")
 if os.path.isfile('./8088/as88.exe') == True:
-    shutil.copytree('./8088', str(linuxfolder + str("/8088/")))
-    shutil.rmtree('./8088')
-
+    try:
+        shutil.copytree('./8088', str(linuxfolder + str("/8088/")))
+    except:
+        print("FATAL:errors moving the 8088 directory")
+    try:
+        shutil.rmtree('./8088')
+    except:
+        print("WARN:errors removing 8088 directory")
 
 
 if os.path.isfile(linuxdos + '/dosbox-0.74-3_buckup.conf') == True:
@@ -60,7 +70,7 @@ def callback(num):
                 T.delete('1.0', tk.END)
                 T.insert(tk.END, "Warning no input file")
                 e.configure(foreground='red',activeforeground='red')
-                c.configure(foreground='yellow',activeforeground='yellow')
+                c.configure(foreground='black',activeforeground='black')
                 k.configure(foreground='red',activeforeground='red')
                 s.configure(foreground='red',activeforeground='red')
             else:
@@ -80,7 +90,7 @@ def callback(num):
                 e.configure(foreground='red',activeforeground='red')
                 k.configure(foreground='red',activeforeground='red')
                 s.configure(foreground='red',activeforeground='red')
-                c.configure(foreground='yellow',activeforeground='yellow')
+                c.configure(foreground='black',activeforeground='black')
             else:
                 fold88= linuxfolder + str("/8088/")
                 copystring = f_w_ext
@@ -138,7 +148,7 @@ def callback(num):
 
                             os.rename(linuxdos + "/dosbox-0.74-3.conf",linuxdos + "/dosbox-0.74-3_buckup.conf")
                             os.rename(linuxdos + "/test_rep.conf",linuxdos + "/dosbox-0.74-3.conf")
-                            p = subprocess.Popen(str('dosbox'))
+                            p = subprocess.Popen(str('open -a DOSBox'))
                             p.wait()
                             clearjunk()
                             if os.path.isfile(linuxdos + '/dosbox-0.74-3_buckup.conf') == True:
@@ -162,16 +172,16 @@ if os.path.isfile(str(linuxfolder + '/8088/as88.exe')) != True :
     T.insert(tk.END, "Follow install \ninstructions ")
     
 else:              
-    c = tk.Button(root, text=txt3, height = 1,width = 25,activebackground='black',background='black',foreground='white',activeforeground='yellow')
+    c = tk.Button(root, text=txt3, height = 1,width = 25,activebackground='white',background='white',foreground='black',activeforeground='yellow')
     c.configure(command=lambda :callback(3))
     c.place(x=10 ,y=20)
-    e = tk.Button(root, text="tracer", height = 1,width = 25,activebackground='black',background='black',foreground='yellow',activeforeground='red')
+    e = tk.Button(root, text="tracer", height = 1,width = 25,activebackground='white',background='white',foreground='red',activeforeground='red')
     e.configure(command=lambda :callback(4))
     e.place(x=10 ,y=50)
-    k = tk.Button(root, text="run", height = 1,width = 25,activebackground='black',background='black',foreground='yellow',activeforeground='red')
+    k = tk.Button(root, text="run", height = 1,width = 25,activebackground='white',background='white',foreground='red',activeforeground='red')
     k.configure(command=lambda :callback(5))
     k.place(x=10 ,y=80)
-    s = tk.Button(root, text="syntax check", height = 1,width = 25,activebackground='black',background='black',foreground='yellow',activeforeground='red')
+    s = tk.Button(root, text="syntax check", height = 1,width = 25,activebackground='white',background='white',foreground='red',activeforeground='red')
     s.configure(command=lambda :callback(6))
     s.place(x=10 ,y=110)
     T = tk.Text(root, height = 2, width = 28,)
