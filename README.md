@@ -40,7 +40,7 @@ Terminal commands:
 sudo apt-get install dosbox
 sudo apt-get install python3 
 
-PS:python could be already installed in the system,missing modules errors should be fixed manually(by installing them)
+PS:python could be already installed in the system,missing modules errors should be fixed manually by installing those modules
 
 2)Download the source zip and unzip the file
 3)move the /8088 folder in linux builder directory in the unzipped file 
@@ -55,7 +55,11 @@ command: "dosbox"
 
 ```
 Now just start 8088GUIassembler.py in "linux builder" folder(you can change this file location)
-
+```
+PS:
+If you get the error "non module named tkinter" run the command "sudo apt-get install python3-tk"
+This error could happen on fresh Ubuntu installs
+```
 # MacOS install Instructons(UNTESTED VERSION,WILL PROBABLY NOT WORK):
 ```
 1)Install DOSBOX and python3(>3.8)
