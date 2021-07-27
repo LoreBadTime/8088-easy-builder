@@ -72,3 +72,17 @@ Now just start 8088GUIassembler.py in "linux builder" folder(you can change this
 ```
 Now just start 8088GUIassembler.py in "MacOS builder" folder(you can change this file location)
 
+# FAQ
+
+1)The builder is stuck in follow install instructions
+```
+This means that some files are badly placed,this problem depends by case so it sould be fixed manually(contact me or fill a issue)
+```
+2)Buttons do nothing
+```
+Try to replace manually the dosbox.conf provided in source folder into the default location following this link https://www.dosbox.com/wiki/Dosbox.conf
+```
+3)MacOS version does not work
+```
+its based on few feedbacks,but this is the best i can do since i don't own a MacOS
+```
