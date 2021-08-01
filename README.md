@@ -18,7 +18,7 @@ and you need to pack them in a folder called 8088 like this
 /8088/CWSDPMI.EXE
 ```
 
-# Windows install Instructons:
+# Windows install Instructons:(working on windows 11)
 ```
 1)Install DOSBOX and python3(>3.8)
 2)Download the source zip and unzip the file
