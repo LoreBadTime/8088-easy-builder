@@ -1,6 +1,13 @@
 # 8088-easy-builder
 GUI 8088 builder
 
+# Features:
+```
+easy file pickup
+fast and automatized building process
+implemented a fix/workaround for the filename bug
+automatic cleanup after execution
+```
 # Prerequisites:
 You need to get few files
 ```
