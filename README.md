@@ -1,5 +1,5 @@
 # 8088-easy-builder
-GUI 8088 builder
+GUI for the 8088 tracer toolkit
 
 # Features:
 ```
