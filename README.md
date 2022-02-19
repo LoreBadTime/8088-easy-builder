@@ -40,7 +40,7 @@ and you need to pack them in a folder called 8088 like this
 ```
 Now just start 8088GUIassembler.pyw in "Windows builder" folder(you can change this file location)
 
-# Linux install Instructons(Ubuntu based;TEST VERSION,COULD NOT WORK):
+# Linux install Instructons(Ubuntu based):
 ```
 1)Install DOSBOX and python3(>3.8)
 Terminal commands:
